@@ -8,11 +8,11 @@ from posixpath import split
 from bs4 import BeautifulSoup as bs
 from multiprocessing import Process, cpu_count
 
-# 'Huobi Global', 'Binance', 'FTX', 'Kraken', 'Bybit'
+
 pairs = {}
 result = {'buy': {'name': [], 'price' : [], 'exchange' : []}, 'sell': {'name': [], 'price' : [], 'exchange' : []}, 'profit': 0}
-settings = {'exception': {'symbol': ['BRL', 'KRW', 'UAH', 'TRY', 'RUB'], 'exchange': ['Hoo', 'EXX', 'EXMO', 'Mercatox', '0x Protocol'], 'profit': [5, 30]}, 'one_exchange': []}
-#settings = {'exception': {'symbol': [], 'exchange': [], 'profit': [5, 30]}, 'one_exchange': ['Huobi Global', 'Binance', 'FTX', 'Kraken', 'Bybit', 'Lbank']}
+settings = {'exception': {'symbol': [], 'exchange': [], 'profit': [5, 50]}, 'one_exchange': []}
+
 
 
 def calculate(pairs, slug_name, x):
