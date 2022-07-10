@@ -10,8 +10,9 @@ from multiprocessing import Process, cpu_count
 
 
 pairs = {}
+results = []
 result = {'buy': {'name': [], 'price' : [], 'exchange' : []}, 'sell': {'name': [], 'price' : [], 'exchange' : []}, 'profit': 0}
-settings = {'exception': {'symbol': [], 'exchange': [], 'profit': [5, 50]}, 'one_exchange': []}
+settings = {'exception': {'symbol': ['BRL', 'KRW'], 'exchange': ['EXMO'], 'profit': [3, 50]}, 'one_exchange': ['Huobi Global', 'Binance']}
 
 
 
@@ -64,8 +65,10 @@ def calculate(pairs, slug_name, x):
     exchange_b = result.get('buy').get('exchange')
     exchange_s = result.get('sell').get('exchange')
     if result.get('profit') > settings.get('exception').get('profit')[0] and result.get('profit') < settings.get('exception').get('profit')[1]:
-        print(str(x) + ' | ' + str(result), end = '\n')
-                
+        pd.Series(str(str(x) + ' | ' + str(result))).to_csv('results.csv', mode = 'a', index=False, header=False)
+
+        
+             
 
 
 def parser(URL_TEMPLATE, slug_name, x):
@@ -95,8 +98,8 @@ if __name__ == '__main__':
         slugs = {k: v.strip() for k, v in (line.split(',') for line in f)}
         x = 0
         procs = []
-        multiprocessingCount = 10
-        for i in range(2, 5300):
+        multiprocessingCount = 25
+        for i in range(0, 5299):
             cur_time = time.perf_counter() - t_s
             print(str(i) + ' ' + str(math.floor(cur_time)) + 's' + ' Speed = ' + str(round(i / cur_time, 2)) + 'n/s', end = '\r')
             slug_name = (slugs.get(str(i)))
@@ -110,4 +113,5 @@ if __name__ == '__main__':
                 x = 0
             x += 1
             
+
 
